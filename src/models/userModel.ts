@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 const userSchema=new Schema({
    FirstName:{
     type:String,
@@ -29,6 +29,7 @@ const userSchema=new Schema({
     required:true
   },
   cardId:{
+    
     type:Number,
     required:true,
   },
@@ -37,7 +38,7 @@ const userSchema=new Schema({
     required:true
   },
 }) ;
-export interface IUser{
+export interface IUser extends Document{
   FirstName:string,
   LastName:string,
   Email:string,
@@ -47,4 +48,4 @@ export interface IUser{
   PlaceofBirth:string,
   cardId:number,
 }
-export const userModel=model('User',userSchema);
+export const userModel=model<IUser>('User',userSchema);

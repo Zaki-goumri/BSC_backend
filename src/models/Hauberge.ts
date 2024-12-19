@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 const HaubergeSchema=new Schema({
   type:{
     type: String,
@@ -54,8 +54,8 @@ const HaubergeSchema=new Schema({
  
 });  
   
-export const HaubergeModel=model("Hauberge",HaubergeSchema);
-export interface IHauberge{
+export const HaubergeModel=model<IHauberge>("Hauberge",HaubergeSchema);
+export interface IHauberge extends Document{
   type: string,
   capacity: number,
   name: string,
