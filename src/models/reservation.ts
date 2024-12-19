@@ -1,4 +1,4 @@
-import mongoos,{Schema} from "mongoose";
+import mongoose,{Schema} from "mongoose";
 
 interface IReservation {
         user_id: String,
@@ -24,4 +24,4 @@ const ReservationSchema = new Schema({
     status: {type: String, required: true}
 });
 
-export default mongoos.model<IReservation>("Reservation", ReservationSchema);
+export const ReservationModel = mongoose.model<IReservation>("Reservation", ReservationSchema);
