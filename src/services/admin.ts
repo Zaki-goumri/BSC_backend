@@ -1,3 +1,4 @@
+import { StringExpression } from "mongoose";
 import StatusCode from "../enums/statusCode.enum"
 import { adminModel, Iadmin } from "../models/admin"
 import bcrypt from 'bcrypt';
@@ -52,5 +53,15 @@ export async function checkToken(token:String){
     return true
   } catch (error) {
   return false 
+  }
+}
+export async function GetRole(token:String){
+  try {
+    const admin=await adminModel.findOne({Token:token});
+    if(admin==null){
+      return null    }
+     return admin.Role 
+  } catch (error) {
+    return  null;
   }
 }

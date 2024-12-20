@@ -50,6 +50,20 @@ export async function register(user: IUser) {
     }
   }
 }
+export async function getAllUsers() {
+  try {
+    const users: IUser[] = await userModel.find();
+    return {
+      data: users,
+      Status: StatusCode.OK
+    }
+  } catch (e) {
+    return {
+      data: [],
+      Status: StatusCode.INTERNAL_SERVER_ERROR,
+    }
+  }
+}
 export async function checkToken(token: String) {
   try {
     const user = await userModel.findOne({ token: token });

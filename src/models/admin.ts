@@ -5,7 +5,7 @@ export interface Iadmin extends Document{
   Token:string,
   Role:Role
 }
-enum Role{
+export enum Role{
   Super="Super Admin",
   Admin="Admin",
 }
