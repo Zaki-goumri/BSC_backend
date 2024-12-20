@@ -20,7 +20,7 @@ export const blackListSchema=new Schema({
     type:Date,
     required:true
   },
-  Facilty:{
+  Hobberge:{
     type:String,
     required:true
   }
