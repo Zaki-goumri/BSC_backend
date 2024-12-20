@@ -20,6 +20,7 @@ const ReservationSchema = new Schema({
     room_number: {type: String, required: true},
     check_in: {type: Date, required: true},
     check_out: {type: Date, required: true},
+    hauberge:{type:String,required:true},
     nature_reservation: {type: String, required: true},
     restauration: {type: Number ,default:0},
     status: {type: String, required: true}

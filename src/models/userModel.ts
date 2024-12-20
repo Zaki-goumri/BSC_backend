@@ -17,7 +17,7 @@ const userSchema=new Schema({
     required:true
   },
   Phone:{
-    type:Number,
+    type:String,
     required:true
   },
   DateOfBirth:{
@@ -47,7 +47,7 @@ export interface IUser extends Document{
   LastName:string,
   Email:string,
   Password:string,
-  Phone:number,
+  Phone:string,
   DateOfBirth:Date,
   PlaceofBirth:string,
   cardId:number,

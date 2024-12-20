@@ -16,7 +16,6 @@ export interface IHauberge extends Document{
   avalaiblity:boolean,
   PersonReservedNbr:number,
   Offres:string[],
-  sexe: 'male' | 'female'
 }
 
 
@@ -74,11 +73,6 @@ const HaubergeSchema=new Schema({
   type:[String],
   required:true
 },
-  sexe: {
-    type: String,
-    enum: ['male', 'female'],
-    required: true
-  }
 
  
 });  

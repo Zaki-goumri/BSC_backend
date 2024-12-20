@@ -1,4 +1,4 @@
-import { Model,  Schema } from "mongoose";
+import {  model, Schema } from "mongoose";
 
 export interface IBlackList extends Document{
   userId:string,
@@ -25,4 +25,4 @@ export const blackListSchema=new Schema({
     required:true
   }
 })
-export const blackListModel=new Model("BlackList",blackListSchema)
+export const blackListModel=model<IBlackList>("BlackList",blackListSchema)
