@@ -15,6 +15,8 @@ export interface IHauberge extends Document{
   phone: string,
   avalaiblity:boolean,
   PersonReservedNbr:number,
+  rating:number,
+  prix:number,
   Offres:string[],
 }
 
@@ -24,7 +26,7 @@ export interface IHauberge extends Document{
 const HaubergeSchema=new Schema({
   type:{
     type: String,
-    enum: ['maison','camp'],
+    enum: ['maison','camp','Hotel'],
     required: true
   },
   capacity: {
@@ -50,11 +52,19 @@ const HaubergeSchema=new Schema({
     type: String,
     required: true
   },
+  Prix:{
+    type:Number,
+    required:true
+  },
   
   email: {
     type: String,
     required: true,
     match: /\S+@\S+\.\S+/, // Basic email validation regex
+  },
+  rating:{
+    type:Number,
+    default:0
   },
   phone: {
     type: String,

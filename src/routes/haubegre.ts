@@ -1,11 +1,15 @@
 
 import { Router } from "express";
-import { AddHauberge, DeleteHauberge, getAllHauberges, GetCurrentResidents, UpdateHauberge } from "../services/HaubergeServices";
+import { AddHauberge, DeleteHauberge, getAllHauberges, getAvalaibleHauberges, GetCurrentResidents, UpdateHauberge } from "../services/HaubergeServices";
 import StatusCode from "../enums/statusCode.enum";
 import { IsAuthorizedAdmin } from "../middlwares/auth";
 
 export const router=Router();
-
+router.get('/Available/:startDate',async(req,res)=>{
+  const startDate=req.params.startDate;
+  const output=await getAvalaibleHauberges(new Date(startDate));
+  res.status(output.Status).send(output.data);
+})
 router.use(IsAuthorizedAdmin);
 router.get('/',async(req,res)=>{
  const output=await getAllHauberges();

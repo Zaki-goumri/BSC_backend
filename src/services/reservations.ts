@@ -65,7 +65,7 @@ export const addReservation = async (reservation:IUpdateReservation) => {
         return {statusbar:StatusCode.BAD_REQUEST, message:"you are not allowed to reserve without a parent ID"};
     }
 
-    const Hauberge = await HaubergeModel.findOne({name:reservation.hauberge});
+    const Hauberge = await HaubergeModel.findById(reservation.haubergeId);
     if (!Hauberge) {
         return {statusbar:StatusCode.BAD_REQUEST, message:"Hauberge not found"};
     }
@@ -76,8 +76,8 @@ export const addReservation = async (reservation:IUpdateReservation) => {
     const newReservation = new ReservationModel(reservation);
     await newReservation.save();
     Hauberge.PersonReservedNbr += 1;
-    await Hauberge.save();
-    return {statusbar:StatusCode.CREATED, message:"Reservation added successfully"};
+    const dbRes=await Hauberge.save();
+    return {statusbar:StatusCode.CREATED, message:dbRes};
    } catch (error) {
 
     return {statusbar:StatusCode.INTERNAL_SERVER_ERROR, message:error};
@@ -98,7 +98,7 @@ export const updateReservation = async (reservation:IUpdateReservation) => {
     if (!check || check.statusbar !== StatusCode.OK) {
         return check;
     }
-    const Hauberge = await HaubergeModel.findOne({name:reservation.hauberge});
+    const Hauberge = await HaubergeModel.findById(reservation.haubergeId);
     if (!Hauberge) {
         return {statusbar:StatusCode.BAD_REQUEST, message:"Hauberge not found"};
     }
@@ -117,7 +117,7 @@ export const updateReservation = async (reservation:IUpdateReservation) => {
 export const deleteReservation = async (id:string) => {
     try {
         const reservationToDelete = await ReservationModel.findById(id);
-         const haugergeToUpdate=await HaubergeModel.findOne({name:reservationToDelete?.hauberge})
+         const haugergeToUpdate=await HaubergeModel.findById(reservationToDelete?.haubergeId)
         if (!reservationToDelete) {
             return {statusbar:StatusCode.NOT_FOUND, message:"Reservation not found"};
                 }        

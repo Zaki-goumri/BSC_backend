@@ -10,6 +10,7 @@ import { userRouter } from './routes/users';
 // import { BlackListRouter } from './routes/blackList';
 import transportRoute from './routes/transport';
 import { BlackListRouter } from './routes/blackList';
+import { gemRouter } from './routes/aiRoutes';
 
 dotenv.config()
 const app=express();
@@ -25,7 +26,7 @@ app.use('/auth',authRouter)
 
 app.use('/user',userRouter);
 app.use('/blacklist',BlackListRouter);
-
+app.use('/ai',gemRouter)
 const port=process.env.PORT || 3000;
 const dbURI = process.env.MONGO_URI || 'mongodb://localhost:27017/express-mongo';
 
