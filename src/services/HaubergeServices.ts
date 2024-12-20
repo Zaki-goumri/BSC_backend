@@ -1,6 +1,8 @@
 import StatusCode from "../enums/statusCode.enum";
 import { HaubergeModel,  IHauberge } from "../models/Hauberge";
 
+import  { ReservationModel } from "../models/reservation";
+interface optionalHauberge extends Partial<IHauberge> {} 
 export async function getAllHauberges(){
   try{
    const Hauberges:IHauberge[]=await HaubergeModel.find();
@@ -60,7 +62,7 @@ export async function DeleteHauberge(Id:String){
       Status:StatusCode.INTERNAL_SERVER_ERROR
   } 
 }}
-export async function UpdateHauberge(Id:string,Hauberge:IHauberge){
+export async function UpdateHauberge(Id:string,Hauberge:optionalHauberge){
   try {
     await HaubergeModel.findByIdAndUpdate(Id,Hauberge);
     return {
@@ -72,4 +74,18 @@ export async function UpdateHauberge(Id:string,Hauberge:IHauberge){
     data:error,
     Status:StatusCode.INTERNAL_SERVER_ERROR
   }}}
+export async  function GetCurrentResidents(Id:string){
+   try{ 
+    const currentResident=await ReservationModel.find({HaubergeId:Id,Status:"Active"});  
+    return {
+      data:currentResident,
+      Status:StatusCode.OK
+    }
+  }catch(e){
+    return {
+      data:e,
+      Status:StatusCode.INTERNAL_SERVER_ERROR
+    }
+  }
+}
 
