@@ -2,7 +2,7 @@ import StatusCode from "../enums/statusCode.enum";
 import { IUser, userModel } from "../models/userModel";
 
 import bcrypt from 'bcrypt';
-
+import { v4 as uuidv4 } from 'uuid';
 
 export async function login(email: string, password: string) {
     try {
@@ -36,6 +36,8 @@ export async function login(email: string, password: string) {
 export async function register(user: IUser) {
   try {
     const dbUser = await userModel.findOne({ email: user.Email });
+    const uuid=uuidv4();
+   user.Token=uuid;
     if (dbUser != null) {
       return {
         data: "User already exists",
