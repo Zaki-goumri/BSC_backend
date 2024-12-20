@@ -45,7 +45,7 @@ export async function getBlackList(){
      }
    }
 }
-export async function isBlackListed(userId:string){
+export async function isBlackListed(userId:String){
   try {
     const blackList=await blackListModel.findOne({userId:userId});
     if(blackList==null){

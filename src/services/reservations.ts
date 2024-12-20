@@ -57,11 +57,15 @@ export const addReservation = async (reservation:IUpdateReservation) => {
       }
     }
     
-    const check = await checkReservation(reservation);
-    if (!check || check.statusbar !== StatusCode.OK) {
-        return check;
+    
+    if (reservation.check_in > reservation.check_out) {
+        return {statusbar:StatusCode.BAD_REQUEST, message:"Check in date must be before check out date"};
     }
-    const Hauberge = await HaubergeModel.findOne({name:reservation.restauration});
+    if (Number(reservation.age) < 19 && !reservation.parent_ID) {
+        return {statusbar:StatusCode.BAD_REQUEST, message:"you are not allowed to reserve without a parent ID"};
+    }
+
+    const Hauberge = await HaubergeModel.findOne({name:reservation.hauberge});
     if (!Hauberge) {
         return {statusbar:StatusCode.BAD_REQUEST, message:"Hauberge not found"};
     }
@@ -76,7 +80,7 @@ export const addReservation = async (reservation:IUpdateReservation) => {
     return {statusbar:StatusCode.CREATED, message:"Reservation added successfully"};
    } catch (error) {
 
-    return {statusbar:StatusCode.INTERNAL_SERVER_ERROR, message:"Internal server error"};
+    return {statusbar:StatusCode.INTERNAL_SERVER_ERROR, message:error};
     
    }
 }
@@ -113,6 +117,7 @@ export const updateReservation = async (reservation:IUpdateReservation) => {
 export const deleteReservation = async (id:string) => {
     try {
         const reservationToDelete = await ReservationModel.findById(id);
+         const haugergeToUpdate=await HaubergeModel.findOne({name:reservationToDelete?.hauberge})
         if (!reservationToDelete) {
             return {statusbar:StatusCode.NOT_FOUND, message:"Reservation not found"};
                 }        
@@ -120,6 +125,13 @@ export const deleteReservation = async (id:string) => {
                     return {statusbar:StatusCode.BAD_REQUEST, message:"Cannot delete a reservation that has already been checked in"};
                 }
                 await ReservationModel.findByIdAndDelete(id);
+                  if (haugergeToUpdate==null){
+      return {statusbar:StatusCode.BAD_GATEWAY,message:"Hauberge Gone"}
+    }else {
+
+                haugergeToUpdate.PersonReservedNbr-=1 
+    }
+                await haugergeToUpdate.save()
                 return {statusbar:StatusCode.OK, message:"Reservation deleted successfully"};
             
             }catch (error) {

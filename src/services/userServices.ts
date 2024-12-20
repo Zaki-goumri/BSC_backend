@@ -4,7 +4,7 @@ import { IUser, userModel } from "../models/userModel";
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 
-export async function login(email: string, password: string) {
+export async function loginUser(email: string, password: string) {
     try {
         const user = await userModel.findOne({ email: email });
         if (user == null) {
@@ -33,8 +33,10 @@ export async function login(email: string, password: string) {
   }
 }
 
-export async function register(user: IUser) {
+export async function registerUser(user: IUser) {
   try {
+    console.log('I am here')
+    console.log('The user',user)
     const dbUser = await userModel.findOne({ email: user.Email });
     const uuid=uuidv4();
    user.Token=uuid;
@@ -43,7 +45,7 @@ export async function register(user: IUser) {
         data: "User already exists",
         Status: StatusCode.BAD_REQUEST
       }}
-    const hash = await bcrypt.hash(user.Password, 10);
+    const hash = await bcrypt.hash(user.Password,10);
     user.Password = hash;
     const model = new userModel(user);
     const output = await model.save();
