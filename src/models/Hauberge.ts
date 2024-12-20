@@ -1,4 +1,29 @@
 import { Document, model, Schema } from "mongoose";
+
+
+
+export interface IHauberge extends Document{
+  type: string,
+  capacity: number,
+  name: string,
+  location: {
+    latitude: number,
+    longitude: number
+  },
+  address: string,
+  email: string,
+  phone: string,
+  avalaiblity:boolean,
+  PersonReservedNbr:number,
+  Offres:string[],
+  sexe: 'male' | 'female'
+}
+
+
+
+
+
+
 const HaubergeSchema=new Schema({
   type:{
     type: String,
@@ -50,25 +75,18 @@ const HaubergeSchema=new Schema({
   Offres:{
   type:[String],
   required:true
-}
+},
+  sexe: {
+    type: String,
+    enum: ['male', 'female'],
+    required: true
+  }
+
  
 });  
   
-export const HaubergeModel=model<IHauberge>("Hauberge",HaubergeSchema);
-export interface IHauberge extends Document{
-  type: string,
-  capacity: number,
-  name: string,
-  location: {
-    latitude: number,
-    longitude: number
-  },
-  address: string,
-  email: string,
-  phone: string,
-  avalaiblity:boolean,
-  PersonReservedNbr:number,
-  Offres:string[]
-}
+export const HaubergeModel= model<IHauberge>("Hauberge",HaubergeSchema);
+
+
 
 

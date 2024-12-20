@@ -5,6 +5,7 @@ interface Itransport extends Document{
   station:String ,
   start_time:Date,
   end_time: Date, 
+  
 }
 
 const transportSchema = new Schema<Itransport>({
