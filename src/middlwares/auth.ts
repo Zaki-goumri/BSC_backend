@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { checkToken, GetRole } from "../services/admin";
 import { Role } from "../models/admin";
 
+
 export async function IsAuthorizedAdmin(req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization; 
   if (token=="5"){
@@ -18,6 +19,8 @@ export async function IsAuthorizedAdmin(req: Request, res: Response, next: NextF
         res.status(401).send('Unauthorized');
     }
 }
+
+
 export async function isSuperAdmin (req: Request, res: Response, next: NextFunction) {
    const token = req.headers.authorization;
   if (!token){
@@ -33,6 +36,7 @@ if(role==Role.Super){
     next();}
   }
 }
+
 export async function IsAuthorizedUser(req: Request, res: Response, next: NextFunction) {
  const token=req.headers.authorization;  
   if (!token){
