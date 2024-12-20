@@ -1,4 +1,6 @@
+
 import { model, Model,  Schema } from "mongoose";
+
 
 export interface IBlackList extends Document{
   userId:string,

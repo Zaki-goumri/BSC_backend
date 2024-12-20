@@ -47,7 +47,7 @@ export interface IUser extends Document{
   LastName:string,
   Email:string,
   Password:string,
-  Phone:number,
+  Phone:string,
   DateOfBirth:Date,
   PlaceofBirth:string,
   cardId:number,
