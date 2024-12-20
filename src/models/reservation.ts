@@ -1,3 +1,4 @@
+import e from "express";
 import mongoose,{Schema} from "mongoose";
 
 export interface IReservation {
@@ -20,10 +21,12 @@ const ReservationSchema = new Schema({
     room_number: {type: String, required: true},
     check_in: {type: Date, required: true},
     check_out: {type: Date, required: true},
+
     haubergeId:{type:String,required:true},
-    nature_reservation: {type: String, required: true},
+      nature_reservation: {type: String, required: true,enums:["Gratuit","Payant","Restauration"]},
     restauration: {type: Number ,default:0},
-    status: {type: String, required: true}
+    status: {type: String, required: true,enums:["en attente","residé","terminé"]},
+    hauberge:{type:String,required:true}
 });
 
 export const ReservationModel = mongoose.model<IReservation>("Reservation", ReservationSchema);

@@ -7,7 +7,6 @@ import { logger } from './middlwares/logger';
 import cors from 'cors';
 import { authRouter } from './routes/auth';
 import { userRouter } from './routes/users';
-// import { BlackListRouter } from './routes/blackList';
 import transportRoute from './routes/transport';
 import { BlackListRouter } from './routes/blackList';
 import { gemRouter } from './routes/aiRoutes';

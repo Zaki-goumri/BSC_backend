@@ -1,6 +1,7 @@
 import { now } from "mongoose";
 import StatusCode from "../enums/statusCode.enum";
 import { blackListModel } from "../models/blackList";
+import { IUser, userModel } from "../models/userModel";
 
 export async function addToBlackList(userId:string,Reason:string,hobberge:String){
   const newBan=new blackListModel({
@@ -54,6 +55,7 @@ export async function getBlackList(){
        Status:StatusCode.OK
      }
    }catch(e){
+    console.log(e)
      return {
        data:e,
        Status:StatusCode.INTERNAL_SERVER_ERROR
