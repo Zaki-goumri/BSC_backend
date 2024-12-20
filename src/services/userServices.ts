@@ -35,6 +35,12 @@ export async function login(email: string, password: string) {
 
 export async function register(user: IUser) {
   try {
+    const dbUser = await userModel.findOne({ email: user.Email });
+    if (dbUser != null) {
+      return {
+        data: "User already exists",
+        Status: StatusCode.BAD_REQUEST
+      }}
     const hash = await bcrypt.hash(user.Password, 10);
     user.Password = hash;
     const model = new userModel(user);
