@@ -1,9 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { router } from './routes/haubege';
 import { logger } from './middlwares/logger';
 import { authRouter } from './routes/auth';
+import { router } from './routes/haubegre';
+import { userRouter } from './routes/users';
 
 dotenv.config()
 const app=express();
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use('/Hauberge',router)
 app.use('/auth',authRouter)
 
+app.use('/user',userRouter);
 const port=process.env.PORT || 3000;
 const dbURI = process.env.MONGO_URI || 'mongodb://localhost:27017/express-mongo';
 
