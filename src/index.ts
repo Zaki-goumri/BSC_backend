@@ -7,7 +7,7 @@ import { logger } from './middlwares/logger';
 import { authRouter } from './routes/auth';
 import { userRouter } from './routes/users';
 import { BlackListRouter } from './routes/blackList';
-
+import transportRoute from './routes/transport';
 dotenv.config()
 const app=express();
 
@@ -35,6 +35,7 @@ mongoose.connect(dbURI).then(()=>{
 
 app.use('/Hauberge',router)
 app.use('/reservations',ReservationRoute)
+app.use('/transport',transportRoute)
 
 app.listen(port,()=>{
     console.log('Server is running on port '+port);

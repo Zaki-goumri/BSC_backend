@@ -1,7 +1,8 @@
 import StatusCode from "../enums/statusCode.enum";
 import { HaubergeModel,  IHauberge } from "../models/Hauberge";
-
 import  { ReservationModel } from "../models/reservation";
+
+
 interface optionalHauberge extends Partial<IHauberge> {} 
 export async function getAllHauberges(){
   try{
