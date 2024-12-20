@@ -1,4 +1,5 @@
 import { Document, model, Schema } from "mongoose"
+
 export interface Iadmin extends Document{
   Username:string,
   password:string,
@@ -23,11 +24,11 @@ const adminSchema=new Schema({
     enum:Role,
     required:true
   },
-  //TODO This is a temporary  auth instead of using JWT
-  Token:{
-    type:String,
-    required:false,
-  }
+  // //TODO This is a temporary  auth instead of using JWT
+  // Token:{
+  //   type:String,
+  //   required:false,
+  // }
 
 
 })

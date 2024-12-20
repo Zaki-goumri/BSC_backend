@@ -4,13 +4,15 @@ import mongoose from 'mongoose';
 import { router } from './routes/haubegre';
 import ReservationRoute from './routes/reservations';
 import { logger } from './middlwares/logger';
+import cors from 'cors';
 import { authRouter } from './routes/auth';
 import { userRouter } from './routes/users';
 import transportRoute from './routes/transport';
 
-dotenv.config()
 const app=express();
 
+dotenv.config()
+app.use(cors())
 app.use(logger);
 app.use(express.json())
 
