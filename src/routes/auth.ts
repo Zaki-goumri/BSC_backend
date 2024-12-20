@@ -3,7 +3,7 @@ import { login, register} from "../services/admin";
 
 export const authRouter=Router();
 authRouter.post('/admin/login',async(req,res)=>{
-  const output=await login(req.body.Username,req.body.Password);
+  const output=await login(req.body.userName,req.body.password);
   res.status(output.Status).send(output.data);
 }
 

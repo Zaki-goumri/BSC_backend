@@ -2,9 +2,10 @@ import { StringExpression } from "mongoose";
 import StatusCode from "../enums/statusCode.enum"
 import { adminModel, Iadmin } from "../models/admin"
 import bcrypt from 'bcrypt';
-export async function login(username:string,password:string){
+
+export async function login(userName:string,password:string){
   try {
-    const admin=await adminModel.findOne({Username:username})
+    const admin=await adminModel.findOne({userName:userName})
     if(admin==null){
       return {
         data:"User not found",

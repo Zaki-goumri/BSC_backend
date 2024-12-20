@@ -4,13 +4,17 @@ import mongoose from 'mongoose';
 import { router } from './routes/haubegre';
 import ReservationRoute from './routes/reservations';
 import { logger } from './middlwares/logger';
+import cors from 'cors';
 import { authRouter } from './routes/auth';
 import { userRouter } from './routes/users';
-import { BlackListRouter } from './routes/blackList';
+// import { BlackListRouter } from './routes/blackList';
 import transportRoute from './routes/transport';
+
 dotenv.config()
 const app=express();
 
+dotenv.config()
+app.use(cors())
 app.use(logger);
 app.use(express.json())
 
@@ -19,7 +23,7 @@ app.use('/Hauberge',router)
 app.use('/auth',authRouter)
 
 app.use('/user',userRouter);
-app.use('/blacklist',BlackListRouter);
+// app.use('/blacklist',BlackListRouter);
 
 const port=process.env.PORT || 3000;
 const dbURI = process.env.MONGO_URI || 'mongodb://localhost:27017/express-mongo';
