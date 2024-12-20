@@ -22,6 +22,9 @@ export const getReservations = async () => {
 const checkReservation = async (reservation:IUpdateReservation) => {
 
     const checkReservation = await ReservationModel.findById(reservation._id);
+    if (!checkReservation) {
+        return {statusbar:StatusCode.NOT_FOUND, message:"Reservation not found"};
+    }
     if (reservation.check_in > reservation.check_out) {
         return {statusbar:StatusCode.BAD_REQUEST, message:"Check in date must be before check out date"};
     }

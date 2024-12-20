@@ -22,8 +22,6 @@ export interface IHauberge extends Document{
 
 
 
-
-
 const HaubergeSchema=new Schema({
   type:{
     type: String,
