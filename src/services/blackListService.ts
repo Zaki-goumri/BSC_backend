@@ -1,4 +1,4 @@
-import { now } from "mongoose";
+import { get, now } from "mongoose";
 import StatusCode from "../enums/statusCode.enum";
 import { blackListModel } from "../models/blackList";
 import { IUser, userModel } from "../models/userModel";
@@ -25,7 +25,7 @@ export async function removeFromBlackList(userId:string){
   try{
     await blackListModel.findOneAndDelete({userId:userId});
     return {
-      data:"Deleted Succefuly",
+      data:await getBlackList(),
       Status:StatusCode.OK
     }
   }catch(e){
@@ -50,6 +50,8 @@ export async function getBlackList(){
       as: "UserInfo",           // Result field
     },
   },    ]);
+
+    console.log(blackList)
      return {
        data:blackList,
        Status:StatusCode.OK

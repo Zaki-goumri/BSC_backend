@@ -26,6 +26,8 @@ app.use('/auth',authRouter)
 app.use('/user',userRouter);
 app.use('/blacklist',BlackListRouter);
 app.use('/ai',gemRouter)
+
+
 const port=process.env.PORT || 3000;
 const dbURI = process.env.MONGO_URI || 'mongodb://localhost:27017/express-mongo';
 
@@ -41,7 +43,6 @@ mongoose.connect(dbURI).then(()=>{
 app.use('/Hauberge',router)
 app.use('/reservations',ReservationRoute)
 app.use('/transport',transportRoute)
-
 app.listen(port,()=>{
     console.log('Server is running on port '+port);
     })

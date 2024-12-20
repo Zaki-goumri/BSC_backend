@@ -1,7 +1,5 @@
 
 import { Router } from "express";
-
-
 import { Request, Response } from "express-serve-static-core";
 import { AddHauberge, DeleteHauberge, getAllHauberges, getALLResidents, GetCurrentResidents, UpdateHauberge } from "../services/HaubergeServices";
 import StatusCode from "../enums/statusCode.enum";
@@ -9,13 +7,13 @@ import { IsAuthorizedAdmin } from "../middlwares/auth";
 
 export const router = Router();
 
- router.use(IsAuthorizedAdmin);
+//  router.use(IsAuthorizedAdmin);
 
- main
 router.get('/',async(req,res)=>{
  const output=await getAllHauberges();
   res.status(output.Status).send(output.data);
 })
+
 router.post('/',async(req,res)=>{
   try{
   const hauberge=req.body;
