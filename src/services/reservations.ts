@@ -2,6 +2,7 @@ import { ReservationModel } from "../models/reservation";
 import { IReservation } from "../models/reservation";
 import StatusCode from "../enums/statusCode.enum";
 import { HaubergeModel, IHauberge } from "../models/Hauberge";
+import { isBlackListed } from "./blackListService";
 
 
 interface IUpdateReservation extends IReservation {
@@ -22,9 +23,9 @@ export const getReservations = async () => {
 const checkReservation = async (reservation:IUpdateReservation) => {
 
     const checkReservation = await ReservationModel.findById(reservation._id);
-    if (!checkReservation) {
-        return {statusbar:StatusCode.NOT_FOUND, message:"Reservation not found"};
-    }
+  if (!checkReservation) {
+    return {statusbar:StatusCode.NOT_FOUND, message:"Reservation not found"};
+  }
     if (reservation.check_in > reservation.check_out) {
         return {statusbar:StatusCode.BAD_REQUEST, message:"Check in date must be before check out date"};
     }
@@ -49,11 +50,18 @@ const checkHauberge = async (hauberge:IHauberge) => {
 
 export const addReservation = async (reservation:IUpdateReservation) => {
    try {
+    if (await isBlackListed(reservation.user_id)){
+      return {
+        statusbar:StatusCode.BAD_REQUEST,
+        message:"User is blacklisted"
+      }
+    }
+    
     const check = await checkReservation(reservation);
     if (!check || check.statusbar !== StatusCode.OK) {
         return check;
     }
-    const Hauberge = await HaubergeModel.findOne({name:reservation.hauberge});
+    const Hauberge = await HaubergeModel.findOne({name:reservation.restauration});
     if (!Hauberge) {
         return {statusbar:StatusCode.BAD_REQUEST, message:"Hauberge not found"};
     }
