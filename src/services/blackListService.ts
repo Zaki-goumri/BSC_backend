@@ -1,3 +1,4 @@
+import { now } from "mongoose";
 import StatusCode from "../enums/statusCode.enum";
 import { blackListModel } from "../models/blackList";
 import { IUser, userModel } from "../models/userModel";
@@ -6,7 +7,8 @@ export async function addToBlackList(userId:string,Reason:string,hobberge:String
   const newBan=new blackListModel({
     userId:userId,
     Reason:Reason,
-    Facility:hobberge
+    Hobberge:hobberge,
+    Date:new Date(now())
   })
   try{
   const newBlackList= await newBan.save();
@@ -34,15 +36,20 @@ export async function removeFromBlackList(userId:string){
 }}
 export async function getBlackList(){
    try {
-     const blackList=await blackListModel.find();
-     for (const preson of blackList) {
-      const user = await userModel.findOne({cartId: preson.userId});
-      if (user) {
-        preson.firstName = user.FirstName;
-        preson.lastName = user.LastName;
-      }
-     }
-     console.log(blackList)
+     const blackList=await blackListModel.aggregate([
+  {
+    $addFields: {
+      userIdObject: { $toObjectId: "$userId" }, // Convert userId string to ObjectId
+    },
+  },
+  {
+    $lookup: {
+      from: "users",            // Name of the users collection
+      localField: "userIdObject", // Converted ObjectId field
+      foreignField: "_id",      // ObjectId in the users collection
+      as: "UserInfo",           // Result field
+    },
+  },    ]);
      return {
        data:blackList,
        Status:StatusCode.OK
