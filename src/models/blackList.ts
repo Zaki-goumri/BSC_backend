@@ -1,10 +1,12 @@
-import { Model,  Schema } from "mongoose";
+import { model, Model,  Schema } from "mongoose";
 
 export interface IBlackList extends Document{
   userId:string,
   Reason:string,
   Hobberge:string,
   Date:Date,
+  firstName:string,
+  lastName:string
 
 }
 export const blackListSchema=new Schema({
@@ -23,6 +25,14 @@ export const blackListSchema=new Schema({
   Facilty:{
     type:String,
     required:true
+  },
+  firstName:{
+    type:String,
+    required:false
+  },
+  lastName:{
+    type:String,
+    required:false
   }
 })
-export const blackListModel=new Model("BlackList",blackListSchema)
+export const blackListModel= model("BlackList",blackListSchema)

@@ -47,10 +47,9 @@ const checkHauberge = async (hauberge:IHauberge) => {
 
 
 
-
 export const addReservation = async (reservation:IUpdateReservation) => {
    try {
-    if (await isBlackListed(reservation.user_id)){
+    if (await isBlackListed(reservation.user_id as string)) {   
       return {
         statusbar:StatusCode.BAD_REQUEST,
         message:"User is blacklisted"
@@ -80,7 +79,6 @@ export const addReservation = async (reservation:IUpdateReservation) => {
     
    }
 }
-
 
 
 

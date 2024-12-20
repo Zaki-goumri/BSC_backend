@@ -1,41 +1,41 @@
 import { Document, model, Schema } from "mongoose";
-const userSchema=new Schema({
-   FirstName:{
-    type:String,
-    required:true
-  },
-  LastName:{
-    type:String,
-    required:true
-  },
-  Email:{
-    type:String,
-    required:true
-  },
-  Password:{
-    type:String,
-    required:true
-  },
-  Phone:{
-    type:Number,
-    required:true
-  },
-  DateOfBirth:{
-    type:Date,
-    required:true
-  },
-  PlaceofBirth:{
-    type:String,
-    required:true
-  },
-  cardId:{
-    type:Number,
-    required:true,
-  },
-  Sex:{
-    type:String,
-    required:true
-  },
+  const userSchema=new Schema({
+    FirstName:{
+      type:String,
+      required:true
+    },
+    LastName:{
+      type:String,
+      required:true
+    },
+    Email:{
+      type:String,
+      required:true
+    },
+    Password:{
+      type:String,
+      required:true
+    },
+    Phone:{
+      type:Number,
+      required:true
+    },
+    DateOfBirth:{
+      type:Date,
+      required:true
+    },
+    PlaceofBirth:{
+      type:String,
+      required:true
+    },
+    cardId:{
+      type:String,
+      required:true,
+    },
+    Sex:{
+      type:String,
+      required:true
+    },
   //TODO This is a temporary  auth instead of using JWT
   Token:{
     type:String,
@@ -53,4 +53,4 @@ export interface IUser extends Document{
   cardId:number,
   Token:string,
 }
-export const userModel=model<IUser>('User',userSchema);
+export const userModel = model<IUser>('User',userSchema);

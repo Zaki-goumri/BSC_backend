@@ -1,5 +1,6 @@
 import StatusCode from "../enums/statusCode.enum";
 import { blackListModel } from "../models/blackList";
+import { IUser, userModel } from "../models/userModel";
 
 export async function addToBlackList(userId:string,Reason:string,hobberge:String){
   const newBan=new blackListModel({
@@ -34,11 +35,20 @@ export async function removeFromBlackList(userId:string){
 export async function getBlackList(){
    try {
      const blackList=await blackListModel.find();
+     for (const preson of blackList) {
+      const user = await userModel.findOne({cartId: preson.userId});
+      if (user) {
+        preson.firstName = user.FirstName;
+        preson.lastName = user.LastName;
+      }
+     }
+     console.log(blackList)
      return {
        data:blackList,
        Status:StatusCode.OK
      }
    }catch(e){
+    console.log(e)
      return {
        data:e,
        Status:StatusCode.INTERNAL_SERVER_ERROR
