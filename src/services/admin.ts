@@ -1,7 +1,7 @@
-import { StringExpression } from "mongoose";
 import StatusCode from "../enums/statusCode.enum"
 import { adminModel, Iadmin } from "../models/admin"
 import bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';
 
 export async function login(userName:string,password:string){
   try {
@@ -30,8 +30,17 @@ export async function login(userName:string,password:string){
   }}
 export async function register(admin:Iadmin){
   try {
+    const dbAdmin=await adminModel.findOne({userName:admin.Username});
+    if(dbAdmin!=null){
+      return {
+        data:"User already exists",
+        Status:StatusCode.BAD_REQUEST
+      }
+    }
     const hash=await bcrypt.hash(admin.password,10);
     admin.password=hash;
+    const uuid=uuidv4();
+    admin.Token=uuid;
     const model=new adminModel(admin);
     const output=await model.save();
     return {
