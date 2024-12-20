@@ -29,7 +29,6 @@ const userSchema=new Schema({
     required:true
   },
   cardId:{
-    
     type:Number,
     required:true,
   },
@@ -37,6 +36,11 @@ const userSchema=new Schema({
     type:String,
     required:true
   },
+  //TODO This is a temporary  auth instead of using JWT
+  Token:{
+    type:String,
+    required:false,
+  }
 }) ;
 export interface IUser extends Document{
   FirstName:string,
@@ -47,5 +51,6 @@ export interface IUser extends Document{
   DateOfBirth:Date,
   PlaceofBirth:string,
   cardId:number,
+  Token:string,
 }
 export const userModel=model<IUser>('User',userSchema);
