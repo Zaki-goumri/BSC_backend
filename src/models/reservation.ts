@@ -8,7 +8,7 @@ export interface IReservation {
         room_number: String,
         check_in: Date,
         check_out: Date,
-        hauberge:String,
+        haubergeId:String,
         nature_reservation:"Gratuit"| "Payant"| "Restauration",
         restauration: Number,
         status:"en attente"|"residé"|"terminé"
@@ -22,8 +22,8 @@ const ReservationSchema = new Schema({
     check_in: {type: Date, required: true},
     check_out: {type: Date, required: true},
 
-    nature_reservation: {type: String, required: true,enums:["Gratuit","Payant","Restauration"]},
-    hauberge:{type:String,required:true},
+    haubergeId:{type:String,required:true},
+      nature_reservation: {type: String, required: true,enums:["Gratuit","Payant","Restauration"]},
     restauration: {type: Number ,default:0},
     status: {type: String, required: true,enums:["en attente","residé","terminé"]},
     hauberge:{type:String,required:true}

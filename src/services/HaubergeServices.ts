@@ -97,7 +97,9 @@ export async function UpdateHauberge(Id:string,Hauberge:optionalHauberge){
 
 export async  function GetCurrentResidents(Id:string){
    try{ 
+
     const currentResident:IReservation[] =await ReservationModel.find({HaubergeId:Id,Status:"residé"});  
+ 
     return {
       data:currentResident,
       Status:StatusCode.OK
@@ -109,9 +111,37 @@ export async  function GetCurrentResidents(Id:string){
     }
   }
 }
+export async function getAvalaibleHauberges(startDate:Date){
+  
+  try{
+    const avalaibleHauberges=await HaubergeModel.find({avalaiblity:true});
+    const available = await Promise.all(
+  avalaibleHauberges.map(async (elem) => {
+        console.log(elem.PersonReservedNbr<elem.capacity)
+    const isAvailable = elem.PersonReservedNbr < elem.capacity || 
+                        (await ReservationModel.countDocuments({
+                          haubergeId: elem._id,
+                          check_out: { $lte: startDate },
+                        }) > 0);
+    return isAvailable ? elem : null;  // Keep only available hauberges
+  })
 
+);
+// Filter out null values
+const filteredAvailable = available.filter((elem) => elem !== null);    
+    return {
+      data:filteredAvailable,
+      Status:StatusCode.OK
+    }
+  }catch(e){
+    return {
+      data:e,
+      Status:StatusCode.INTERNAL_SERVER_ERROR
+    }
+  }
+}
 
-export async function getALLResidents() {
+      export async function getALLResidents() {
   try{ 
     let result = [];
     const currentResident = await ReservationModel.find({status:"residé"});  
@@ -131,5 +161,4 @@ export async function getALLResidents() {
       Status:StatusCode.INTERNAL_SERVER_ERROR
     }
   }
- 
 }
