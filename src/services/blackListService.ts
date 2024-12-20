@@ -1,11 +1,11 @@
 import StatusCode from "../enums/statusCode.enum";
 import { blackListModel } from "../models/blackList";
 
-export async function addToBlackList(userId:string,Reason:string){
+export async function addToBlackList(userId:string,Reason:string,hobberge:String){
   const newBan=new blackListModel({
     userId:userId,
     Reason:Reason,
-    Date:new Date()
+    Facility:hobberge
   })
   try{
   const newBlackList= await newBan.save();
