@@ -6,6 +6,7 @@ import ReservationRoute from './routes/reservations';
 import { logger } from './middlwares/logger';
 import { authRouter } from './routes/auth';
 import { userRouter } from './routes/users';
+import { BlackListRouter } from './routes/blackList';
 
 dotenv.config()
 const app=express();
@@ -18,6 +19,8 @@ app.use('/Hauberge',router)
 app.use('/auth',authRouter)
 
 app.use('/user',userRouter);
+app.use('/blacklist',BlackListRouter);
+
 const port=process.env.PORT || 3000;
 const dbURI = process.env.MONGO_URI || 'mongodb://localhost:27017/express-mongo';
 
