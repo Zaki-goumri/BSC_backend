@@ -4,13 +4,13 @@ import { AddHauberge, DeleteHauberge, getAllHauberges, UpdateHauberge } from "..
 import StatusCode from "../enums/statusCode.enum";
 
 export const router=Router();
+
 router.get('/',async(req,res)=>{
  const output=await getAllHauberges();
   res.status(output.Status).send(output.data);
 })
 router.post('/',async(req,res)=>{
   try{
-
   const hauberge=req.body;
     const output=await AddHauberge(hauberge);
     res.status(output.Status).send(output.data);

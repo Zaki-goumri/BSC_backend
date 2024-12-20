@@ -1,5 +1,6 @@
 import StatusCode from "../enums/statusCode.enum";
 import { HaubergeModel,  IHauberge } from "../models/Hauberge";
+
 export async function getAllHauberges(){
   try{
    const Hauberges:IHauberge[]=await HaubergeModel.find();
