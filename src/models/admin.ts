@@ -24,11 +24,10 @@ const adminSchema=new Schema({
     enum:Role,
     required:true
   },
-  // //TODO This is a temporary  auth instead of using JWT
-  // Token:{
-  //   type:String,
-  //   required:false,
-  // }
+  Token:{
+    type:String,
+    required:false,
+  }
 
 
 })
