@@ -10,7 +10,6 @@ interface optionalHauberge extends Partial<IHauberge> {}
 export async function getAllHauberges(){
   try{
    const Hauberges:IHauberge[]=await HaubergeModel.find();
-    console.log('Responed with'+Hauberges)
     return {
       data:Hauberges,
       Status:StatusCode.OK
@@ -116,7 +115,6 @@ export async  function GetCurrentResidents(Id:string){
 export async function getAvalaibleHauberges(startDate:Date){
   
   try{
-    console.log('I am the controller')
     const avalaibleHauberges=await HaubergeModel.find({avalaiblity:true});
     const available = await Promise.all(
   avalaibleHauberges.map(async (elem) => {
