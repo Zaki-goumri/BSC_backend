@@ -5,12 +5,13 @@ import { HaubergeModel, IHauberge } from "../models/Hauberge";
 import { isBlackListed } from "./blackListService";
 
 
+
 interface IUpdateReservation extends IReservation {
     _id: string;
 }
 
 
-
+//Get all of the current reservations in all of the hoberges
 export const getReservations = async () => {
     const reservations = await ReservationModel.find();
     if (!reservations) {
@@ -19,7 +20,7 @@ export const getReservations = async () => {
     return {statusbar:StatusCode.OK, message:reservations};
 }
 
-
+//Check to see if a reservation is valid
 const checkReservation = async (reservation:IUpdateReservation) => {
 
     const checkReservation = await ReservationModel.findById(reservation._id);
@@ -45,7 +46,7 @@ const checkHauberge = async (hauberge:IHauberge) => {
     return {statusbar:StatusCode.OK, message:"Hauberge is available"};
 }
 
-
+//The Logic to adding a reservation
 
 export const addReservation = async (reservation:IUpdateReservation) => {
    try {

@@ -1,6 +1,6 @@
 import {Router} from "express";
 import { login, register} from "../services/admin";
-import { DelAccount, loginUser, registerUser } from "../services/userServices";
+import { DelAccount, loginUser, registerUser, updateUser } from "../services/userServices";
 
 export const authRouter=Router();
 authRouter.post('/admin/login',async(req,res)=>{
@@ -30,7 +30,10 @@ authRouter.post('/user/register',async(req,res)=>{
 }
 )
 
-
+authRouter.put('/user/:id',async(req,res)=>{
+  const output=await updateUser(req.params.id,req.body);
+  res.status(output.StatusCode).send(output.data);
+})
 
 
 authRouter.delete('/user/:id',async(req,res)=>{
