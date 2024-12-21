@@ -112,6 +112,7 @@ export async  function GetCurrentResidents(Id:string){
     }
   }
 }
+//Get all the available Hauberges in a given date
 export async function getAvalaibleHauberges(startDate:Date){
   
   try{
