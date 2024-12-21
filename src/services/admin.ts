@@ -30,7 +30,6 @@ export async function login(userName:string,password:string){
   }}
 export async function register(admin:Iadmin){
   try {
-    console.log('Im here')
     const dbAdmin=await adminModel.findOne({userName:admin.Username});
     if(dbAdmin!=null){
       return {

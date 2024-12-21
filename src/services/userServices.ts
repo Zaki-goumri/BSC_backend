@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export async function loginUser(email: string, password: string) {
     try {
-        const user = await userModel.findOne({ email: email });
+        const user = await userModel.findOne({Email: email });
         if (user == null) {
             return {
                 data: "User not found",
@@ -24,6 +24,7 @@ export async function loginUser(email: string, password: string) {
       Status: StatusCode.OK}
      
     } catch (e) {
+    console.log(e)
     return {
       data: e,
       Status: StatusCode.INTERNAL_SERVER_ERROR
@@ -35,8 +36,6 @@ export async function loginUser(email: string, password: string) {
 
 export async function registerUser(user: IUser) {
   try {
-    console.log('I am here')
-    console.log('The user',user)
     const dbUser = await userModel.findOne({ email: user.Email });
     const uuid=uuidv4();
    user.Token=uuid;
@@ -54,6 +53,7 @@ export async function registerUser(user: IUser) {
       Status: StatusCode.CREATED
     }
   } catch (error) {
+    console.log(error)
     return {
       data: error,
       Status: StatusCode.INTERNAL_SERVER_ERROR
@@ -83,5 +83,19 @@ export async function checkToken(token: String) {
     return true
   } catch (error) {
     return false
+  }
+}
+export async function DelAccount(id:String){
+ try{
+  await userModel.findOneAndDelete({cardId:id})
+    return {
+    StatusCode:StatusCode.OK,
+    data:"Deleted Succefuly"
+    }
+  }catch(e){
+    return {
+      StatusCode:StatusCode.INTERNAL_SERVER_ERROR,
+      data:e
+    }
   }
 }
