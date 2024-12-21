@@ -19,7 +19,7 @@ const app=express();
 dotenv.config()
 //usage of middlwared
 app.use(cors())
-app.use(logger);
+app.use(logger());
 app.use(express.json())
 //ROutes
 
