@@ -5,7 +5,7 @@ import { Role } from "../models/admin";
 
 export async function IsAuthorizedAdmin(req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization; 
-  if (token=="5"){
+  if (token){
     next();
     return
   }

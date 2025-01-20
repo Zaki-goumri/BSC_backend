@@ -17,7 +17,7 @@ import { Document, model, Schema } from "mongoose";
       required:true
     },
     Phone:{
-      type:Number,
+      type:String,
       required:true
     },
     DateOfBirth:{

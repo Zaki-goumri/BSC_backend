@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { handlePrompt } from "../services/aiServices";
 
+//Single Route for handling Ai request
 export const gemRouter=Router()
 gemRouter.post('/',async(req,res)=>{
   console.log(req.body)
