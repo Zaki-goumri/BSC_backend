@@ -1,4 +1,5 @@
 import {Document, Schema, model} from 'mongoose';
+
 export interface Iemploye extends Document{
   FirstName:string,
   LastName:string,
@@ -8,6 +9,7 @@ export interface Iemploye extends Document{
   Job:string,
 }
 const employeSchema=new Schema({
+
   FirstName:{
     type:String,
     required:true

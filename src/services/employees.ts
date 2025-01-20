@@ -56,8 +56,9 @@ export const deleteEmployee = async (id:string) => {
 try {
 
    await Employee.findByIdAndDelete(id);
+   const employees = await Employee.find();
    return {
-    data:"Deleted Succefuly",
+    data:employees,
     Status:StatusCode.OK } 
 } catch (error) {
   return {

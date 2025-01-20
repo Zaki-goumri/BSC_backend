@@ -3,9 +3,10 @@ import { adminModel, Iadmin } from "../models/admin"
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 
+
 export async function login(userName:string,password:string){
   try {
-    const admin=await adminModel.findOne({userName:userName})
+    const admin=await adminModel.findOne({Username:userName})
     if(admin==null){
       return {
         data:"User not found",
@@ -42,7 +43,7 @@ export async function register(admin:Iadmin){
     const uuid=uuidv4();
     admin.Token=uuid;
     const model=new adminModel(admin);
-    const output=await model.save();
+    const output= await model.save();
     return {
       data:output,
       Status:StatusCode.CREATED

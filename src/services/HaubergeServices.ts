@@ -58,7 +58,7 @@ export async function DeleteHauberge(Id:String){
   try {
     await HaubergeModel.findByIdAndDelete(Id);
     return {
-      data:"Deleted Succefuly",
+      data:await HaubergeModel.find(),
       Status:StatusCode.OK
     }
   } catch (error) {

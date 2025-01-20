@@ -16,7 +16,6 @@ export interface IHauberge extends Document{
   avalaiblity:boolean,
   PersonReservedNbr:number,
   rating:number,
-  prix:number,
   Offres:string[],
   pricePerNight:number
 }
@@ -53,11 +52,6 @@ const HaubergeSchema=new Schema({
     type: String,
     required: true
   },
-  Prix:{
-    type:Number,
-    required:true
-  },
-  
   email: {
     type: String,
     required: true,

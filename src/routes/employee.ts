@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEmployee, getAllEmployees, getEmployeeById } from "../services/employees";
+import { createEmployee, deleteEmployee, getAllEmployees, getEmployeeById } from "../services/employees";
 
 
 export const EmployeeRouter=Router()
@@ -26,6 +26,6 @@ EmployeeRouter.put('/:id',async(req,res)=>{
 })
 EmployeeRouter.delete('/:id',async(req,res)=>{
   const id=req.params.id;
-  const output=await getEmployeeById(id);
+  const output=await deleteEmployee(id);
   res.status(output.Status).send(output.data);
 })

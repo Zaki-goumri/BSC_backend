@@ -33,7 +33,6 @@ app.use('/reservations',ReservationRoute)
 app.use('/transport',transportRoute)
 app.use('/employees',EmployeeRouter)
 app.use('/ai',gemRouter)
-//Trying to connect to the db
 
 mongoose.connect(dbURI).then(()=>{
 //Starting the server after Ensuring db is connected
@@ -47,4 +46,4 @@ mongoose.connect(dbURI).then(()=>{
     console.log(err);
 })
 
-       
+
