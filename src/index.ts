@@ -11,39 +11,38 @@ import transportRoute from './routes/transport';
 import { BlackListRouter } from './routes/blackList';
 import { gemRouter } from './routes/aiRoutes';
 import { EmployeeRouter } from './routes/employee';
-//init Config
-const port=process.env.PORT || 3000;
-const dbURI = process.env.MONGO_URI || 'mongodb://localhost:27017/express-mongo';
-dotenv.config()
-const app=express();
-dotenv.config()
-//usage of middlwared
-app.use(cors())
+
+// Init Config
+dotenv.config();
+const app = express();
+
+// Middleware
+app.use(cors());
 app.use(logger());
-app.use(express.json())
-//ROutes
+app.use(express.json());
 
-app.use('/Hauberge',router)
-app.use('/auth',authRouter)
+// Routes
+app.use('/Hauberge', router);
+app.use('/auth', authRouter);
+app.use('/user', userRouter);
+app.use('/blacklist', BlackListRouter);
+app.use('/reservations', ReservationRoute);
+app.use('/transport', transportRoute);
+app.use('/employees', EmployeeRouter);
+app.use('/ai', gemRouter);
 
-app.use('/user',userRouter);
-app.use('/blacklist',BlackListRouter);
-app.use('/Hauberge',router)
-app.use('/reservations',ReservationRoute)
-app.use('/transport',transportRoute)
-app.use('/employees',EmployeeRouter)
-app.use('/ai',gemRouter)
+// Database and Server Configuration
+const port = process.env.PORT || 3000;
+const dbURI = process.env.MONGO_URI || 'mongodb://localhost:27017/BSC';
 
-mongoose.connect(dbURI).then(()=>{
-//Starting the server after Ensuring db is connected
- app.listen(port,()=>{
-    console.log('Server is running on port '+port);
-    })
-    console.log('Connected to database');
-}
-).catch((err)=>{
-    console.log('Error connecting to database');
-    console.log(err);
-})
-
-
+mongoose.connect(dbURI)
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+    });
+    console.log('Database connected successfully');
+  })
+  .catch((err) => {
+    console.error('Database connection error:', err.message);
+    process.exit(1);
+  });
