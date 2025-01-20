@@ -111,13 +111,13 @@ export async  function GetCurrentResidents(Id:string){
     }
   }
 }
+//Get all the available Hauberges in a given date
 export async function getAvalaibleHauberges(startDate:Date){
   
   try{
     const avalaibleHauberges=await HaubergeModel.find({avalaiblity:true});
     const available = await Promise.all(
   avalaibleHauberges.map(async (elem) => {
-        console.log(elem.PersonReservedNbr<elem.capacity)
     const isAvailable = elem.PersonReservedNbr < elem.capacity || 
                         (await ReservationModel.countDocuments({
                           haubergeId: elem._id,
