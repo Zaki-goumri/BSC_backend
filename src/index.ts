@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { router } from './routes/haubegre';
 import ReservationRoute from './routes/reservations';
-import { logger } from './middlwares/logger'
+import { logger } from './middlwares/logger';
 import cors from 'cors';
 import { authRouter } from './routes/auth';
 import { userRouter } from './routes/users';
@@ -29,8 +29,9 @@ app.use('/blacklist', BlackListRouter);
 app.use('/reservations', ReservationRoute);
 app.use('/transport', transportRoute);
 app.use('/employees', EmployeeRouter);
+app.use('/ai', gemRouter);
 
-// Server & DB Config
+// Database and Server Configuration
 const port = process.env.PORT || 3000;
 const dbURI = process.env.MONGO_URI || 'mongodb://localhost:27017/BSC';
 
