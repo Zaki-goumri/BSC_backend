@@ -45,17 +45,23 @@ cp .env.example .env
 npm start
 ```
 ## 📦 Features
-1.  Authentication
-  - Secure user registration and login.
-  -  Password hashing with bcrypt.
-  - JWT-based authentication for protected routes (not fully implemented due to time constraints).
 
-2. Places to Sleep
-  - CRUD operations for accommodations.
-  -  Query and filter options by type, location, and availability.
+1. **Authentication**
 
-3. Reservations
-  -  Book and manage reservations for accommodations.
-4. Monuments
-  -  Retrieve information about local monuments and tourist spots.
-  -  Detailed endpoint for each monument.
+   - Secure user registration and login.  
+   - Password hashing with bcrypt.  
+   - JWT-based authentication for protected routes (not fully implemented due to time constraints).  
+
+2. **Places to Sleep**
+
+   - CRUD operations for accommodations.  
+   - Query and filter options by type, location, and availability.  
+
+3. **Reservations**
+
+   - Book and manage reservations for accommodations.  
+
+4. **Monuments**
+
+   - Retrieve information about local monuments and tourist spots.  
+   - Detailed endpoint for each monument.  
